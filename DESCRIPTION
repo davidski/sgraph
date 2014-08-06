@@ -1,0 +1,13 @@
+Package: sgraph
+Type: Package
+Title: Interact with the OpenDNS Security Graph
+Version: 1.0
+Date: 2014-08-06
+Author: David F. Severski <david@severski.net>
+Maintainer: David F. Severski <david@severski.net>
+Description: More about what it does (maybe more than one line)
+License: MIT
+Depends:
+    httr
+Suggests:
+    testthat
