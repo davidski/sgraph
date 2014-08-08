@@ -3,6 +3,8 @@
 #' This function will reach out to \url{https://www.opendns.org}, and retrieve
 #' Security Graph for a passed IP or domain name.
 #'
+#' Your API key for OpenDNS's SecurityGraph must be specified in the system 
+#' envrionment variable SGRAPH_API_KEY or passed via the auth_token parameter.
 #'
 #' @param url URL of the location for the tld name authority
 #' @import httr
@@ -10,8 +12,12 @@
 #' @examples
 #' \dontrun{
 #' sgraph_data <- get_sgraph(domain = "www.google.com", auth_token="YOUR AUTH TOKEN HERE")
+#' sgraph_data <- get_sgraph(ip = "8.8.8.8", auth_token="YOUR AUTH TOKEN HERE")
 #' }
 get_sgraph <- function(ip = NA, domain = NA, auth_token = NA) {
+  if (is.na(auth_token)) {
+    auth_token <- Sys.getenv("SGRAPH_API_KEY")
+  }
   if (!is.na(ip)) {
     #returns history of the A records associated with this IP for the past 90 days
     ip_data <- GET(paste0("https://investigate.api.opendns.com/dnsdb/ip/a/", ip, ".json"), add_headers("Authorization"= paste("Bearer", auth_token)))
